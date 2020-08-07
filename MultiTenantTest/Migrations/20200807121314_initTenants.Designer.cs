@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MultiTenantTest.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(TenantDbContext))]
     [Migration("20200807121314_initTenants")]
     partial class initTenants
     {

@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MultiTenantTest.MiddlewareSolution
 {
@@ -37,11 +39,15 @@ namespace MultiTenantTest.MiddlewareSolution
             return await Task.FromResult(GetTenantID(_httpContextAccessor.HttpContext.Request.Path));
         }
 
+        // todo: for demo purposes using the tenantName but adjust this to use the ID of the tenant instance
         public string GetTenantID(string request)
         {
             string[] parts = request.Split('/', System.StringSplitOptions.RemoveEmptyEntries);
 
-            return parts[1];
+            int index = parts.IndexOf("api") + 1;
+
+            // return Guid.Parse(parts[index]);
+            return parts[index];
         }
     }
 }

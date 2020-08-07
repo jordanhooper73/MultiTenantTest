@@ -17,7 +17,7 @@ namespace MultiTenantTest.MiddlewareSolution
         {
             string tenantIdentifier = await _tenantResolutionStrategy.GetTenantIdentifierAsync();
 
-            return await _tenantStore.GetTenantAsync(tenantIdentifier);
+            return await _tenantStore.GetTenantAsync(tenantIdentifier.ToLowerInvariant());
         }
     }
 }

@@ -5,20 +5,21 @@ using Microsoft.Extensions.Configuration;
 
 namespace MultiTenantTest
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<TestDbContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<TenantDbContext>
     {
-        public TestDbContext CreateDbContext(string[] args)
+        // Required to allow creation of migrations of dbContexts with nonparameterless constructors
+        public TenantDbContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.Development.json")
                 .Build();
 
-            var builder = new DbContextOptionsBuilder<TestDbContext>();
+            var builder = new DbContextOptionsBuilder<TenantDbContext>();
 
             string tenantConnection = $"{configuration.GetConnectionString("TenantDatabasePre")}Database=localTestDb;{configuration.GetConnectionString("TenantDatabasePost")}";
 
-            return new TestDbContext(new DbContextOptions<TestDbContext>(), tenantConnection);
+            return new TenantDbContext(new DbContextOptions<TenantDbContext>(), tenantConnection);
         }
     }
 }

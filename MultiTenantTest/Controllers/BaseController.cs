@@ -8,7 +8,7 @@ namespace MultiTenantTest.Controllers
     {
         protected Tenant Tenant { get; }
 
-        protected TestDbContext Context { get; }
+        protected TenantDbContext Context { get; }
 
         public BaseController(IHttpContextAccessor httpContext, ITenantDbFactory dbFactory)
         {

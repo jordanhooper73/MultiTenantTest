@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MultiTenantTest
 {
-    public class TestDbContext : DbContext
+    public class TenantDbContext : DbContext
     {
         private readonly string _connectionString;
 
         public DbSet<TestObject> TestObjects { get; set; }
 
-        public TestDbContext(DbContextOptions<TestDbContext> options, string connectionString) : base(options)
+        public TenantDbContext(DbContextOptions<TenantDbContext> options, string connectionString) : base(options)
         {
             _connectionString = connectionString;
         }

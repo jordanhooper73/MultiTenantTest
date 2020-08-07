@@ -5,7 +5,7 @@ namespace MultiTenantTest
 {
     public interface ITenantDbFactory
     {
-        TestDbContext GetTenantDatabase(string databaseName);
+        TenantDbContext GetTenantDatabase(string databaseName);
     }
 
     public class TenantDbFactory : ITenantDbFactory
@@ -17,12 +17,11 @@ namespace MultiTenantTest
             _configuration = configuration;
         }
 
-        public TestDbContext GetTenantDatabase(string databaseName)
+        public TenantDbContext GetTenantDatabase(string databaseName)
         {
-            // get TenantOptions
             string tenantConnection = $"{_configuration.GetConnectionString("TenantDatabasePre")}Database={databaseName};{_configuration.GetConnectionString("TenantDatabasePost")}";
 
-            var context = new TestDbContext(new DbContextOptions<TestDbContext>(), tenantConnection);
+            var context = new TenantDbContext(new DbContextOptions<TenantDbContext>(), tenantConnection);
 
             context.Database.Migrate();
 
